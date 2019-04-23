@@ -10,3 +10,6 @@ composer.phar
 
 # tests directories
 /tests
+
+# setup file containing sensitive information
+setup.php
