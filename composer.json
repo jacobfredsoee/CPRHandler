@@ -1,0 +1,5 @@
+{
+    "require": {
+		"phpcap/phpcap": "0.3.2",
+    }
+}
