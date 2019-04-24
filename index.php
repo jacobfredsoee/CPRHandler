@@ -1,5 +1,13 @@
 <?php
 
+$post_dump = print_r($_POST, TRUE);
+
+$fp = fopen('post.log', 'a');
+fwrite($fp, date('m/d/Y H:i:s', time()) . ":");
+fwrite($fp, "\n");
+fwrite($fp, $post_dump);
+fclose($fp);
+
 require_once 'vendor/autoload.php';
 require_once 'CPRhandler.php';
 require_once 'setup.php';
@@ -8,13 +16,26 @@ use IU\PHPCap\RedCapProject;
 
 //Generate the API object
 try {
-    $project = new RedCapProject($apiUrl, $apiToken, TRUE);
+    $project = new RedCapProject($apiUrl, $apiToken, false);
 } catch (Exception $e) {
-    print_r($e);
+    $fp = fopen('error.log', 'a');
+	fwrite($fp, date('m/d/Y H:i:s', time()) . ":");
+	fwrite($fp, "\n");
+	fwrite($fp, print_r($e));
+	fclose($fp);
 }
 
-//record being updated
-$cprs = $project->exportRecordsAp(['recordIds' => [$_POST['record']], 'fields' => ['record_id', $CPR_field]]);
+$record = $_POST['record'];
+
+try {
+    $cprs = $project->exportRecordsAp(['recordIds' => [$record], 'fields' => ['record_id', $CPR_field]]);
+} catch (Exception $e) {
+    $fp = fopen('error.log', 'a');
+	fwrite($fp, date('m/d/Y H:i:s', time()) . ":");
+	fwrite($fp, "\n");
+	fwrite($fp, print_r($e));
+	fclose($fp);
+}
 
 //Create header line
 $headerArray = array('record_id');
