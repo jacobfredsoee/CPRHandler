@@ -4,6 +4,7 @@
 
 # Composer 3rd-party software
 /vendor
+composer.lock
 
 # Composer PHP archive file
 composer.phar
