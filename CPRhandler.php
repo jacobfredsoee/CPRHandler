@@ -22,7 +22,7 @@ Class CPRHandler {
             $this->cprNoDash = $this->cprTrimmed;
         }
 
-        $this->cprWithDash = substr($this->cprNoDash, 0, 6)."-".substr($this->cprNoDash, 5, 4);
+        $this->cprWithDash = substr($this->cprNoDash, 0, 6)."-".substr($this->cprNoDash, 6, 4);
     }
 
     /**
